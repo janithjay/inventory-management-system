@@ -8,7 +8,10 @@ function Registration() {
     const { login } = useAuthStore()
     const [formData, setFormData] = React.useState({
         username: '',
+        email: '',
+        empid: '',
         password: '',
+        confirmPassword: ''
     })
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -30,9 +33,7 @@ function Registration() {
     return (
         <div className="min-h-screen bg-gray-100 flex items-center justify-center">
             <div className="bg-white p-8 rounded-lg shadow-md w-96">
-                <Button className="w-full" onClick={closeButtonClick}>
-                    close
-                </Button>
+
                 <h1 className="text-2xl font-bold mb-6 text-center">Registration</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -44,7 +45,7 @@ function Registration() {
                             type="text"
                             value={formData.username}
                             onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             required
                         />
                     </div>
@@ -54,9 +55,9 @@ function Registration() {
                         </label>
                         <input
                             type="text"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             required
                         />
                     </div>
@@ -66,9 +67,9 @@ function Registration() {
                         </label>
                         <input
                             type="text"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            value={formData.empid}
+                            onChange={(e) => setFormData({ ...formData, empid: e.target.value })}
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             required
                         />
                     </div>
@@ -81,7 +82,7 @@ function Registration() {
                             type="password"
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             required
                         />
                     </div>
@@ -91,17 +92,19 @@ function Registration() {
                         </label>
                         <input
                             type="password"
-                            value={formData.password}
-                            onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            value={formData.confirmPassword}
+                            onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                            className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                             required
                         />
                     </div>
 
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Register
                     </Button>
-
+                    <Button className="flex w-full justify-center items-center rounded-md bg-red-50 px-3 py-1.5 text-sm/6 font-semibold text-red-700 ring-1 ring-inset ring-red-700/10" onClick={closeButtonClick}>
+                        Close
+                    </Button>
                 </form>
             </div>
         </div>
