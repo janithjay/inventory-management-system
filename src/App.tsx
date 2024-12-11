@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Products from './pages/Products'
 import Analytics from './pages/Analytics'
 import Login from './pages/Login'
+import Registration from './pages/Registration'
 import Layout from './components/Layout'
 import { useAuthStore } from './store/useAuthStore'
 
@@ -18,6 +19,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Registration />} />
           {isAuthenticated ? (
             <Route element={<Layout />}>
               <Route path="/" element={<Dashboard />} />

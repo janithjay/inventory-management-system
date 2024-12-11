@@ -22,12 +22,16 @@ function Login() {
     })
     navigate('/')
   }
+  const regButtonClick = () => {
+    navigate('/register'); // Navigate to the "/another" page
+  };
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">
@@ -57,6 +61,9 @@ function Login() {
 
           <Button type="submit" className="w-full">
             Login
+          </Button>
+          <Button className="w-full" onClick={regButtonClick}>
+            Register
           </Button>
         </form>
       </div>
