@@ -8,18 +8,11 @@ import { productRouter } from './routes/product.routes.js';
 import { authRouter } from './routes/auth.routes.js';
 import { setupSocketHandlers } from './socket/handlers.js';
 import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
-
-dotenv.config();
-// bahasuru added for register and login
-
-
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
-import e from 'express';
+
+dotenv.config();
 
 // Connect to MongoDB
 connectDB();
@@ -38,8 +31,9 @@ app.set('io', io);
 // Routes
 app.use('/api/products', productRouter);
 app.use('/api/auth', authRouter);
+
 // MongoDB Connection
-mongoose.connect('mongodb+srv://phdbahasuru:qlZfdD77IUx3xj8G@cluster0.1omwaw2.mongodb.net/InventoryManagementSystem', {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
