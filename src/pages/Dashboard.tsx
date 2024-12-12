@@ -1,12 +1,23 @@
 import React from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { useInventoryStore } from '../store/useInventoryStore'
+import { productAPI } from '../services/api'
 import { InventoryOverview } from '../components/analytics/InventoryOverview'
 import { TopProducts } from '../components/analytics/TopProducts'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { ProductTable } from '../components/products/ProductTable'
 
 function Dashboard() {
-  const { products } = useInventoryStore()
+  const navigate = useNavigate()
+  const { products, setProducts, deleteProduct } = useInventoryStore()
+  
+  // Use React Query for data fetching
+  useQuery({
+    queryKey: ['products'],
+    queryFn: productAPI.getAllProducts,
+    onSuccess: setProducts
+  })
   
   // Get recent products (last 5)
   const recentProducts = [...products]
@@ -15,6 +26,19 @@ function Dashboard() {
 
   // Get low stock products (quantity < 10)
   const lowStockProducts = products.filter(product => product.quantity < 10)
+
+  const handleEdit = (product: any) => {
+    navigate('/products', { state: { editProduct: product } })
+  }
+
+  const handleDelete = async (id: any) => {
+    try {
+      await productAPI.deleteProduct(id)
+      setProducts(products.filter(p => p.id !== id))
+    } catch (error) {
+      console.error('Error deleting product:', error)
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -30,8 +54,8 @@ function Dashboard() {
           <CardContent>
             <ProductTable
               products={recentProducts}
-              onEdit={() => {}}
-              onDelete={() => {}}
+              onEdit={handleEdit}
+              onDelete={deleteProduct}
             />
           </CardContent>
         </Card>
@@ -43,8 +67,8 @@ function Dashboard() {
           <CardContent>
             <ProductTable
               products={lowStockProducts}
-              onEdit={() => {}}
-              onDelete={() => {}}
+              onEdit={handleEdit}
+              onDelete={deleteProduct}
             />
           </CardContent>
         </Card>
