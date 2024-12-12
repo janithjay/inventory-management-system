@@ -31,15 +31,6 @@ function Dashboard() {
     navigate('/products', { state: { editProduct: product } })
   }
 
-  const handleDelete = async (id: any) => {
-    try {
-      await productAPI.deleteProduct(id)
-      setProducts(products.filter(p => p.id !== id))
-    } catch (error) {
-      console.error('Error deleting product:', error)
-    }
-  }
-
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Dashboard</h1>
