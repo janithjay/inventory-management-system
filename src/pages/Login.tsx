@@ -23,7 +23,7 @@ function Login() {
     navigate('/')
   }
   const regButtonClick = () => {
-    navigate('/register'); // Navigate to the "/another" page
+    navigate('/register'); // Navigate to the "/register" page
   };
 
 
