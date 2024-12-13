@@ -1,21 +1,17 @@
 import express from 'express';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
+import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import connectDB from './config/db.js';
-import { productRouter } from './routes/product.routes.js';
-import { authRouter } from './routes/auth.routes.js';
-import { setupSocketHandlers } from './socket/handlers.js';
-import mongoose from 'mongoose';
+
+
+dotenv.config();
+// bahasuru added for register and login
+
+
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
-
-dotenv.config();
-
-// Connect to MongoDB
-connectDB();
+import e from 'express';
 
 const app = express();
 const PORT = 5000;
@@ -25,15 +21,8 @@ const JWT_SECRET = "your_secret_key";
 app.use(cors());
 app.use(bodyParser.json());
 
-// Make io available in routes
-app.set('io', io);
-
-// Routes
-app.use('/api/products', productRouter);
-app.use('/api/auth', authRouter);
-
 // MongoDB Connection
-mongoose.connect(MONGODB_URI, {
+mongoose.connect('mongodb+srv://phdbahasuru:qlZfdD77IUx3xj8G@cluster0.1omwaw2.mongodb.net/InventoryManagementSystem', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
