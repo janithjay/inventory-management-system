@@ -26,7 +26,7 @@ function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        login({ id: data.id, username: formData.username, email: `${formData.username}@example.com`, role: 'admin' });
+        
         navigate('/');
       } else {
         //alert(data.error);
