@@ -12,6 +12,7 @@ function Registration() {
     })
     const [buttonText, setButtonText] = React.useState('Close');
     const [buttonStyle, setButtonStyle] = React.useState('flex w-full justify-center items-center rounded-md bg-red-50 px-3 py-1.5 text-sm/6 font-semibold text-red-700 ring-4 ring-inset ring-red-500/20');
+    const [labelStyle, setLabelStyle] = React.useState('hidden flex w-full justify-center items-center block py-1 text-sm font-medium text-green-700');
     const [labelText1, setLabelText1] = React.useState('');
     const [labelText2, setLabelText2] = React.useState('');
     const [labelText3, setLabelText3] = React.useState('');
@@ -34,7 +35,8 @@ function Registration() {
                 setLabelText3('');
                 setButtonText('Login');
                 setButtonStyle('flex w-full justify-center items-center rounded-md bg-green-50 px-3 py-1.5 text-sm/6 font-semibold text-green-700 ring-4 ring-inset ring-green-500/20');
-                
+                setLabelStyle('flex w-full justify-center items-center block py-1 text-sm font-medium text-green-700');
+
             } else {
                 //alert(data.error);
                 if (data.error) {
@@ -162,7 +164,7 @@ function Registration() {
                     <Button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Register
                     </Button>
-                    <label className="flex w-full justify-center items-center block py-1 text-sm font-medium text-green-700">
+                    <label  className={labelStyle}>
                         {labelText4}
                     </label>
                     <Button className={buttonStyle} onClick={closeButtonClick}>
