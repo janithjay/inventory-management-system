@@ -17,10 +17,10 @@ function Layout() {
   return (
     <div className="min-h-screen bg-gray-100 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-white shadow-lg">
+      <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg">
         <div className="p-4">
-          <h1 className="text-2xl font-bold text-gray-800">Inventory MS</h1>
-          <p className="text-sm text-gray-600 mt-1">Welcome, {user?.username}</p>
+          <h1 className="text-2xl font-bold text-black">Inventory MS</h1>
+          <p className="text-l text-gray-800 mt-1">Welcome, {user?.username}</p>
         </div>
         
         <nav className="mt-8">
@@ -29,7 +29,7 @@ function Layout() {
             className="w-full justify-start px-4 py-2 text-left"
             onClick={() => navigate('/')}
           >
-            <LayoutDashboard className="mr-2 h-4 w-4" />
+            <LayoutDashboard className="mr-2 h-5 w-5" />
             Dashboard
           </Button>
           
@@ -38,7 +38,7 @@ function Layout() {
             className="w-full justify-start px-4 py-2 text-left"
             onClick={() => navigate('/products')}
           >
-            <Package className="mr-2 h-4 w-4" />
+            <Package className="mr-2 h-5 w-5" />
             Products
           </Button>
           
@@ -47,7 +47,7 @@ function Layout() {
             className="w-full justify-start px-4 py-2 text-left"
             onClick={() => navigate('/analytics')}
           >
-            <BarChart2 className="mr-2 h-4 w-4" />
+            <BarChart2 className="mr-2 h-5 w-5" />
             Analytics
           </Button>
         </nav>
@@ -58,7 +58,7 @@ function Layout() {
             className="w-full justify-start"
             onClick={handleLogout}
           >
-            <LogOut className="mr-2 h-4 w-4" />
+            <LogOut className="mr-3 h-5 w-5" />
             Logout
           </Button>
         </div>
