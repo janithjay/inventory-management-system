@@ -35,7 +35,7 @@ function Registration() {
                 setLabelText3('');
                 setButtonText('Login');
                 setButtonStyle('flex w-full justify-center items-center rounded-md bg-green-50 px-3 py-1.5 text-sm/6 font-semibold text-green-700 ring-4 ring-inset ring-green-500/20');
-                setLabelStyle('flex w-full justify-center items-center block py-1 text-sm font-medium text-green-700')
+                setLabelStyle('flex w-full justify-center items-center block py-1 text-sm font-medium text-green-700');
                 
             } else {
                 //alert(data.error);
