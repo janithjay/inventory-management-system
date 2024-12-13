@@ -1,11 +1,9 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuthStore } from '../store/useAuthStore'
 import { Button } from '../components/ui/button'
 
 function Registration() {
-    const navigate = useNavigate()
-    const { login } = useAuthStore()
+    const navigate = useNavigate()    
     const [formData, setFormData] = React.useState({
         username: '',
         email: '',

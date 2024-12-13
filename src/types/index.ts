@@ -12,8 +12,7 @@ export interface Product {
 
 export interface User {
   id: string;
-  username: string;
-  email: string;
+  username: string;  
   role: 'admin' | 'staff';
 }
 
