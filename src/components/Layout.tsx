@@ -15,7 +15,7 @@ function Layout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="min-h-screen bg-gray-20 flex">
       {/* Sidebar */}
       <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg">
         <div className="p-4">
