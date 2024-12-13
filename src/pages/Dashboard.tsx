@@ -13,11 +13,17 @@ function Dashboard() {
   const { products, setProducts, deleteProduct } = useInventoryStore()
   
   // Use React Query for data fetching
-  useQuery({
+  const { data } = useQuery({
     queryKey: ['products'],
     queryFn: productAPI.getAllProducts,
-    onSuccess: setProducts
   })
+
+  // Sync the data to the state
+  React.useEffect(() => {
+    if (data) {
+      setProducts(data)
+    }
+  }, [data, setProducts])
   
   // Get recent products (last 5)
   const recentProducts = [...products]
