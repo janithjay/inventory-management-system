@@ -21,7 +21,9 @@ export const authAPI = {
   login: async (credentials: { username: string; password: string }) => {
     const response = await api.post<{ user: User; token: string }>('/auth/login', credentials);
     const { token, user } = response.data;
+    // After successful login
     localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
     return user;
   },
 
