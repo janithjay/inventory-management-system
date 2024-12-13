@@ -10,7 +10,7 @@ export interface Product {
   updatedAt: Date;
 }
 
-export interface User {
+export interface User { 
   id: string;
   username: string;  
   role: 'admin' | 'staff';
