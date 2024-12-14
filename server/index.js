@@ -93,6 +93,32 @@ app.post('/login', async (req, res) => {
   }
 });
 
+// Product Schema
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  category: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+  description: { type: String },
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+// Add a Product Route
+app.post('/products', async (req, res) => {
+  const { name, category, price, quantity, description } = req.body;
+
+  try {
+    const newProduct = new Product({ name, category, price, quantity, description });
+    await newProduct.save();
+    res.status(201).json({ message: 'Product created successfully', product: newProduct });
+  } catch (error) {
+    console.error('Error saving product:', error);
+    res.status(500).json({ error: 'Failed to create product' });
+  }
+});
+
+
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

@@ -1,26 +1,58 @@
-import React from 'react'
-import { Product } from '../../types'
-import { Button } from '../ui/button'
+import React from 'react';
+import { Product } from '../../types';
+import { Button } from '../ui/button';
 
 interface ProductFormProps {
-  product?: Product
-  onSubmit: (data: Partial<Product>) => void
-  onCancel: () => void
+  product?: Product;
+  onCancel: () => void;
 }
 
-export function ProductForm({ product, onSubmit, onCancel }: ProductFormProps) {
+export function ProductForm({ product, onCancel }: ProductFormProps) {
   const [formData, setFormData] = React.useState({
     name: product?.name || '',
     category: product?.category || '',
     price: product?.price || 0,
     quantity: product?.quantity || 0,
     description: product?.description || '',
-  })
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
-  }
+  const [labelText, setLabelText] = React.useState('');
+  const [labelStyle, setLabelStyle] = React.useState(
+    'hidden text-sm font-medium text-green-700'
+  );
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const endpoint = product
+        ? `http://localhost:5000/products/${product.id}`
+        : 'http://localhost:5000/products';
+
+      const response = await fetch(endpoint, {
+        method: product ? 'PUT' : 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setLabelText(
+          product
+            ? 'Product updated successfully!'
+            : 'Product created successfully!'
+        );
+        setLabelStyle('text-sm font-medium text-green-700');
+      } else {
+        setLabelText(result.error || 'Failed to submit the product.');
+        setLabelStyle('text-sm font-medium text-red-700');
+      }
+    } catch (error) {
+      setLabelText('Error! Could not submit the product. Please try again.');
+      setLabelStyle('text-sm font-medium text-red-700');
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -79,6 +111,10 @@ export function ProductForm({ product, onSubmit, onCancel }: ProductFormProps) {
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
           rows={3}
         />
+      </div>
+
+      <div>
+        <label className={labelStyle}>{labelText}</label>
       </div>
 
       <div className="flex justify-end space-x-3">
