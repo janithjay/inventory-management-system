@@ -1,5 +1,5 @@
-To start in terminal run,
+To start in terminal run -
 npm run dev
 
-to start server run
+to start server run -
 npm run server
