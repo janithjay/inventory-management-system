@@ -1,16 +1,16 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { useNavigate } from 'react-router-dom'
 import { useInventoryStore } from '../store/useInventoryStore'
 import { productAPI } from '../services/api'
 import { InventoryOverview } from '../components/analytics/InventoryOverview'
 import { TopProducts } from '../components/analytics/TopProducts'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
-import { ProductTable } from '../components/products/ProductTable'
+import { ProductTable } from '../components/products/ProductTableWithoutAction'
+
 
 function Dashboard() {
-  const navigate = useNavigate()
-  const { products, setProducts, deleteProduct } = useInventoryStore()
+  
+  const { products, setProducts } = useInventoryStore()
   
   // Use React Query for data fetching
   const { data } = useQuery({
@@ -33,9 +33,7 @@ function Dashboard() {
   // Get low stock products (quantity < 10)
   const lowStockProducts = products.filter(product => product.quantity < 10)
 
-  const handleEdit = (product: any) => {
-    navigate('/products', { state: { editProduct: product } })
-  }
+  
 
   return (
     <div className="space-y-6">
@@ -50,9 +48,7 @@ function Dashboard() {
           </CardHeader>
           <CardContent>
             <ProductTable
-              products={recentProducts}
-              onEdit={handleEdit}
-              onDelete={deleteProduct}
+              products={recentProducts}              
             />
           </CardContent>
         </Card>
@@ -63,9 +59,7 @@ function Dashboard() {
           </CardHeader>
           <CardContent>
             <ProductTable
-              products={lowStockProducts}
-              onEdit={handleEdit}
-              onDelete={deleteProduct}
+              products={lowStockProducts}              
             />
           </CardContent>
         </Card>

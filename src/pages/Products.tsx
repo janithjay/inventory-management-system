@@ -7,15 +7,41 @@ import { ProductFilters } from '../components/products/ProductFilters'
 import { Button } from '../components/ui/button'
 import { Product } from '../types'
 
+
 function Products() {
   const { products, filterConfig, sortConfig, filterProducts, sortProducts, addProduct, updateProduct, deleteProduct } = useInventoryStore()
   const [showForm, setShowForm] = React.useState(false)
   const [selectedProduct, setSelectedProduct] = React.useState<Product | undefined>()
+  
 
   const handleEdit = (product: Product) => {
     setSelectedProduct(product)
-    setShowForm(true)
+    setShowForm(true)     
   }
+
+  const handleDelete = async (name: string) => {
+    try {
+      // Make DELETE request to the backend
+      const response = await fetch(`http://localhost:5000/products/${name}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert('Product deleted successfully!');
+        deleteProduct(name);
+        
+      } else {
+        alert(result.error || 'Error! Could not delete the product.');
+        
+      }
+    } catch (error) {
+      alert('Error! Could not delete the product. Please try again.');
+      
+    }
+  }; 
 
   const handleSubmit = (data: Partial<Product>) => {
     if (selectedProduct) {
@@ -33,9 +59,11 @@ function Products() {
     setSelectedProduct(undefined)
   }
 
-  const handleCancel = () => {
+  const handleCancel  = () => {
     setShowForm(false)
     setSelectedProduct(undefined)
+    
+    
   }
 
   return (
@@ -73,7 +101,7 @@ function Products() {
               <ProductTable
                 products={products}
                 onEdit={handleEdit}
-                onDelete={deleteProduct}
+                onDelete={handleDelete}
               />
             </div>
           )}

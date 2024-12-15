@@ -12,7 +12,7 @@ interface InventoryState {
   filterProducts: (config: FilterConfig) => void
   addProduct: (product: Product) => void
   updateProduct: (product: Product) => void
-  deleteProduct: (id: string) => void
+  deleteProduct: (name: string) => void
 }
 
 export const useInventoryStore = create<InventoryState>((set, get) => {
@@ -104,8 +104,8 @@ export const useInventoryStore = create<InventoryState>((set, get) => {
       };
     }),
     
-    deleteProduct: (id) => set((state) => {
-      const remainingProducts = state.products.filter((p) => p.id !== id);
+    deleteProduct: (name) => set((state) => {
+      const remainingProducts = state.products.filter((p) => p.name !== name);
       localStorage.setItem('products', JSON.stringify(remainingProducts)); // Persist to localStorage
       return {
         products: remainingProducts,

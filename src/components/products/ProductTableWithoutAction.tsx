@@ -5,11 +5,10 @@ import { Button } from '../ui/button'
 
 interface ProductTableProps {
   products: Product[]
-  onEdit: (product: Product) => void
-  onDelete: (name: string) => void
+  
 }
 
-export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) {
+export function ProductTable({ products }: ProductTableProps) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -19,8 +18,7 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>            
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -40,23 +38,6 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="text-sm text-gray-500">{product.description}</div>
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onEdit(product)}
-                  className="mr-2"
-                >
-                  <Edit2 className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => onDelete(product.name)}
-                >
-                  <Trash2 className="h-4 w-4 text-red-500" />
-                </Button>
               </td>
             </tr>
           ))}
