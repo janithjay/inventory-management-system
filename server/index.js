@@ -3,10 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-
 dotenv.config();
-// bahasuru added for register and login
-
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -92,6 +89,43 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: "Login failed" });
   }
 });
+
+// Product Schema
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  category: { type: String, required: true },
+  price: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+  description: { type: String },
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+// Add a Product Route
+app.post('/products', async (req, res) => {
+  const { name, category, price, quantity, description } = req.body;
+
+  try {
+    const newProduct = new Product({ name, category, price, quantity, description });
+    await newProduct.save();
+    res.status(201).json({ message: 'Product created successfully', product: newProduct });
+  } catch (error) {
+    console.error('Error saving product:', error);
+    res.status(500).json({ error: 'Failed to create product' });
+  }
+});
+
+// Get all products Route
+app.get('/products', async (req, res) => {
+  try {
+    const products = await Product.find(); // Fetch all products from the database
+    res.status(200).json(products); // Send the products as a response
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
+});
+
 
 // Start Server
 app.listen(PORT, () => {
