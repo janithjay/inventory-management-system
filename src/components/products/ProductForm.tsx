@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 interface ProductFormProps {
   product?: Product;
   onCancel: () => void;
+  onSubmit: (data: Partial<Product>) => void;
 }
 
 export function ProductForm({ product, onCancel }: ProductFormProps) {
@@ -13,7 +14,7 @@ export function ProductForm({ product, onCancel }: ProductFormProps) {
     category: product?.category || '',
     price: product?.price || 0,
     quantity: product?.quantity || 0,
-    description: product?.description || '',
+    description: product?.description || '',    
   });
 
   const [labelText, setLabelText] = React.useState('');
@@ -26,8 +27,10 @@ export function ProductForm({ product, onCancel }: ProductFormProps) {
 
     try {
       const endpoint = product
-        ? `http://localhost:5000/products/${product.id}`
-        : 'http://localhost:5000/products';
+        ? `http://localhost:5000/products/${product.name}` // Use the product name in the PUT request
+        : 'http://localhost:5000/products'; // POST for new products
+
+      console.log('Sending PUT request to:', endpoint);  
 
       const response = await fetch(endpoint, {
         method: product ? 'PUT' : 'POST',
@@ -43,10 +46,14 @@ export function ProductForm({ product, onCancel }: ProductFormProps) {
             ? 'Product updated successfully!'
             : 'Product created successfully!'
         );
+        
         setLabelStyle('text-sm font-medium text-green-700');
       } else {
-        setLabelText(result.error || 'Failed to submit the product.');
-        setLabelStyle('text-sm font-medium text-red-700');
+        if (result.error === 'Product already exists') {
+          setLabelText('Product already exists. try updating the product instead.');
+          setLabelStyle('text-sm font-medium text-red-700');
+        }
+
       }
     } catch (error) {
       setLabelText('Error! Could not submit the product. Please try again.');
@@ -112,6 +119,7 @@ export function ProductForm({ product, onCancel }: ProductFormProps) {
           rows={3}
         />
       </div>
+
 
       <div>
         <label className={labelStyle}>{labelText}</label>

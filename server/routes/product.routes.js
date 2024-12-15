@@ -27,9 +27,9 @@ router.post('/', authenticateToken, validateProduct, async (req, res) => {
 });
 
 // Update product
-router.put('/:id', authenticateToken, validateProduct, async (req, res) => {
+router.put('/:name', authenticateToken, validateProduct, async (req, res) => {
   try {
-    const product = await ProductService.updateProduct(req.params.id, req.body);
+    const product = await ProductService.updateProduct(req.params.name, req.body);
     req.app.get('io').emit('product:updated', product);
     res.json(product);
   } catch (error) {
@@ -38,10 +38,10 @@ router.put('/:id', authenticateToken, validateProduct, async (req, res) => {
 });
 
 // Delete product
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:name', authenticateToken, async (req, res) => {
   try {
-    await ProductService.deleteProduct(req.params.id);
-    req.app.get('io').emit('product:deleted', req.params.id);
+    await ProductService.deleteProduct(req.params.name);
+    req.app.get('io').emit('product:deleted', req.params.name);
     res.json({ message: 'Product deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
