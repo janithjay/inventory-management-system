@@ -3,7 +3,7 @@
  npm run 
  ```
 
-# To run server
+# To run backend
 ```
 npm run server
 ```
