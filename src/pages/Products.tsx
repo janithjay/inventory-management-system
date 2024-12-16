@@ -115,7 +115,7 @@ function Products() {
   const filteredAndSortedProducts = applyFiltersAndSort(products, filterConfig, sortConfig)
 
   return (
-    <div className="space-y-6 ml-64">
+    <div className="space-y-6 ">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Products</h1>
         <Button onClick={() => setShowForm(true)} className="rounded-md  bg-black px-3 py-1.5 text-sm/6 font-semibold text-white border-2 border-black  shadow-sm hover:bg-black hover:text-white">
