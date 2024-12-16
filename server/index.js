@@ -8,7 +8,6 @@ dotenv.config();
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import bodyParser from 'body-parser';
-import e from 'express';
 
 const app = express();
 const PORT = 5000;
