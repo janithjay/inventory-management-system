@@ -6,13 +6,17 @@ import { ProductForm } from '../components/products/ProductForm'
 import { ProductFilters } from '../components/products/ProductFilters'
 import { Button } from '../components/ui/button'
 import { Product } from '../types'
-
+import { useQuery } from '@tanstack/react-query'
+import { productAPI } from '../services/api'
 
 function Products() {
-  const { products, filterConfig, sortConfig, filterProducts, sortProducts, addProduct, updateProduct, deleteProduct } = useInventoryStore()
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: productAPI.getAllProducts,
+  })
+  const {filterConfig, sortConfig, filterProducts, sortProducts, addProduct, updateProduct, deleteProduct } = useInventoryStore()
   const [showForm, setShowForm] = React.useState(false)
   const [selectedProduct, setSelectedProduct] = React.useState<Product | undefined>()
-  
 
   const handleEdit = (product: Product) => {
     setSelectedProduct(product)
@@ -41,6 +45,7 @@ function Products() {
       alert('Error! Could not delete the product. Please try again.');
       
     }
+    location.reload()
   }; 
 
   const handleSubmit = (data: Partial<Product>) => {
@@ -57,13 +62,13 @@ function Products() {
     }
     setShowForm(false)
     setSelectedProduct(undefined)
+    location.reload()
   }
 
   const handleCancel  = () => {
     setShowForm(false)
     setSelectedProduct(undefined)
-    
-    
+    location.reload()
   }
 
   return (
