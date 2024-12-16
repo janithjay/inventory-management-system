@@ -1,6 +1,6 @@
 # To run frontend
 ```
- npm run 
+ npm run dev 
  ```
 
 # To run backend
