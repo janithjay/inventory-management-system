@@ -7,9 +7,10 @@ interface ProductFiltersProps {
   sort: SortConfig
   onFilterChange: (filters: FilterConfig) => void
   onSortChange: (sort: SortConfig) => void
+  availableCategories: string[] // New prop for available categories
 }
 
-export function ProductFilters({ filters, sort, onFilterChange, onSortChange }: ProductFiltersProps) {
+export function ProductFilters({ filters, sort, onFilterChange, onSortChange, availableCategories }: ProductFiltersProps) {
   const [localFilters, setLocalFilters] = React.useState(filters)
   const [localSort, setLocalSort] = React.useState(sort)
 
@@ -33,12 +34,18 @@ export function ProductFilters({ filters, sort, onFilterChange, onSortChange }: 
       
       <div>
         <label className="block text-sm font-medium text-gray-700">Category</label>
-        <input
-          type="text"
+        <select
           value={localFilters.category || ''}
           onChange={(e) => setLocalFilters({ ...localFilters, category: e.target.value })}
-          className="mt-1 block w-full rounded-md bg-white px-3 py-1 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-        />
+          className="mt-1 block w-full rounded-md bg-white px-1 py-2 text-base text-gray-900 outline outline-2 -outline-offset-1 outline-gray-400 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+        >
+          <option value="">All Categories</option>
+          {availableCategories.map((category) => (
+            <option key={category} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>
