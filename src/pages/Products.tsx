@@ -5,14 +5,19 @@ import { ProductTable } from '../components/products/ProductTable'
 import { ProductForm } from '../components/products/ProductForm'
 import { ProductFilters } from '../components/products/ProductFilters'
 import { Button } from '../components/ui/button'
-import { Product } from '../types'
-
+import { Product, FilterConfig, SortConfig } from '../types'
+import { useQuery } from '@tanstack/react-query'
+import { productAPI } from '../services/api'
+import { quickSort, mergeSort, shellSort } from '../lib/utils'
 
 function Products() {
-  const { products, filterConfig, sortConfig, filterProducts, sortProducts, addProduct, updateProduct, deleteProduct } = useInventoryStore()
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: productAPI.getAllProducts,
+  })
+  const {filterConfig, sortConfig, filterProducts, sortProducts, addProduct, updateProduct, deleteProduct } = useInventoryStore()
   const [showForm, setShowForm] = React.useState(false)
   const [selectedProduct, setSelectedProduct] = React.useState<Product | undefined>()
-  
 
   const handleEdit = (product: Product) => {
     setSelectedProduct(product)
@@ -41,6 +46,7 @@ function Products() {
       alert('Error! Could not delete the product. Please try again.');
       
     }
+    location.reload()
   }; 
 
   const handleSubmit = (data: Partial<Product>) => {
@@ -57,14 +63,56 @@ function Products() {
     }
     setShowForm(false)
     setSelectedProduct(undefined)
+    location.reload()
   }
 
   const handleCancel  = () => {
     setShowForm(false)
     setSelectedProduct(undefined)
-    
-    
+    location.reload()
   }
+
+  const applyFiltersAndSort = (products: Product[], filters: FilterConfig, sort: SortConfig) => {
+    let filteredProducts = products.filter((product) => {
+      if (filters.category && !product.category.toLowerCase().includes(filters.category.toLowerCase())) {
+        return false
+      }
+      if (filters.minPrice && product.price < filters.minPrice) {
+        return false
+      }
+      if (filters.maxPrice && product.price > filters.maxPrice) {
+        return false
+      }
+      if (filters.minQuantity && product.quantity < filters.minQuantity) {
+        return false
+      }
+      return true
+    })
+
+    let sortedProducts: Product[]
+
+    switch (sort.key) {
+      case 'name':
+        sortedProducts = mergeSort(filteredProducts, 'name')
+        break
+      case 'price':
+        sortedProducts = quickSort(filteredProducts, 'price', sort.order)
+        break
+      case 'quantity':
+        sortedProducts = shellSort(filteredProducts, 'quantity')
+        break
+      default:
+        sortedProducts = filteredProducts
+    }
+
+    if (sort.order === 'desc' && sort.key !== 'price') {
+      sortedProducts.reverse()
+    }
+
+    return sortedProducts
+  }
+
+  const filteredAndSortedProducts = applyFiltersAndSort(products, filterConfig, sortConfig)
 
   return (
     <div className="space-y-6 ml-64">
@@ -80,7 +128,9 @@ function Products() {
         <div className="col-span-1">
           <ProductFilters
             filters={filterConfig}
+            sort={sortConfig}
             onFilterChange={filterProducts}
+            onSortChange={sortProducts}
           />
         </div>
 
@@ -99,7 +149,7 @@ function Products() {
           ) : (
             <div className="bg-white rounded-lg shadow outline outline-2 -outline-offset-1 outline-gray-400">
               <ProductTable
-                products={products}
+                products={filteredAndSortedProducts}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
               />
@@ -112,3 +162,4 @@ function Products() {
 }
 
 export default Products
+

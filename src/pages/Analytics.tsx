@@ -1,12 +1,15 @@
-import React from 'react'
-import { useInventoryStore } from '../store/useInventoryStore'
+import { useQuery } from '@tanstack/react-query'
+import { productAPI } from '../services/api'
 import { InventoryOverview } from '../components/analytics/InventoryOverview'
 import { CategoryDistribution } from '../components/analytics/CategoryDistribution'
 import { InventoryTrends } from '../components/analytics/InventoryTrends'
 import { TopProducts } from '../components/analytics/TopProducts'
 
 function Analytics() {
-  const { products } = useInventoryStore()
+  const { data: products = [] } = useQuery({
+    queryKey: ['products'],
+    queryFn: productAPI.getAllProducts,
+  })
 
   return (
     <div className="space-y-6 ml-64">
