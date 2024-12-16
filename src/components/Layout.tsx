@@ -1,71 +1,102 @@
-import React from 'react'
+import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Package, BarChart2, LogOut } from 'lucide-react'
+import { LayoutDashboard, Package, BarChart2, LogOut, ChevronLeft } from 'lucide-react'
 import { useAuthStore } from '../store/useAuthStore'
 import { Button } from './ui/button'
+import { cn } from '../lib/utils'
 
 function Layout() {
   const navigate = useNavigate()
   const { logout, user } = useAuthStore()
+  const [isCollapsed, setIsCollapsed] = useState(false)
 
   const handleLogout = () => {
     logout()
     navigate('/login')
   }
 
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => !prev);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-20 flex">
+    <div className="min-h-screen bg-gray-20 flex overflow-hidden">
       {/* Sidebar */}
-      <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg">
-        <div className="p-4">
-          <h1 className="text-2xl font-bold text-black">Inventory MS</h1>
-          <p className="text-l text-gray-800 mt-1">Welcome, {user?.username}</p>
+      <div
+        className={cn(
+          "bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg fixed h-full flex flex-col transition-all duration-300 ease-in-out",
+          isCollapsed ? "w-16" : "w-64"
+        )}
+        style={{ minHeight: isCollapsed ? '88px' : 'auto' }}
+      >
+        <div className="p-4 flex flex-col items-start relative">
+          <div className="flex items-center w-full">
+            <h1 className={cn("text-2xl font-bold text-black transition-opacity duration-300", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
+              INVENTORY MS
+            </h1>
+            <Button
+              variant="ghost"
+              size="icon"
+              className={cn("absolute right-2 top-3.5", isCollapsed ? "rotate-180" : "")}
+              onClick={toggleSidebar}
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </Button>
+          </div>
+          <p className={cn("text-sm text-gray-800 mt-1 transition-opacity duration-300", isCollapsed ? "opacity-0" : "opacity-100")}>
+            Welcome, {user?.username}
+          </p>
         </div>
         
-        <nav className="mt-8">
+        <nav className="mt-8 flex-grow overflow-y-auto">
           <Button
             variant="ghost"
-            className="w-full justify-start px-4 py-2 text-left"
+            className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
             onClick={() => navigate('/')}
           >
-            <LayoutDashboard className="mr-2 h-5 w-5" />
-            Dashboard
+            <LayoutDashboard className="h-5 w-5" />
+            {!isCollapsed && <span className="ml-2">Dashboard</span>}
           </Button>
           
           <Button
             variant="ghost"
-            className="w-full justify-start px-4 py-2 text-left"
+            className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
             onClick={() => navigate('/products')}
           >
-            <Package className="mr-2 h-5 w-5" />
-            Products
+            <Package className="h-5 w-5" />
+            {!isCollapsed && <span className="ml-2">Products</span>}
           </Button>
           
           <Button
             variant="ghost"
-            className="w-full justify-start px-4 py-2 text-left"
+            className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
             onClick={() => navigate('/analytics')}
           >
-            <BarChart2 className="mr-2 h-5 w-5" />
-            Analytics
+            <BarChart2 className="h-5 w-5" />
+            {!isCollapsed && <span className="ml-2">Analytics</span>}
           </Button>
         </nav>
 
-        <div className="absolute bottom-4 w-64 px-4">
+        <div className="p-4">
           <Button
             variant="outline"
-            className="w-full justify-start"
+            className={cn("w-full", isCollapsed ? "justify-center px-0" : "justify-start")}
             onClick={handleLogout}
           >
-            <LogOut className="mr-3 h-5 w-5" />
-            Logout
+            <LogOut className="h-5 w-5" />
+            {!isCollapsed && <span className="ml-3">Logout</span>}
           </Button>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+      <div
+        className={cn(
+          "flex-1 overflow-auto transition-all duration-300 ease-in-out",
+          isCollapsed ? "ml-16" : "ml-64"
+        )}
+      >
         <div className="p-8">
           <Outlet />
         </div>
@@ -75,3 +106,4 @@ function Layout() {
 }
 
 export default Layout
+

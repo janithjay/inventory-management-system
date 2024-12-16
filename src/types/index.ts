@@ -17,8 +17,8 @@ export interface User {
 }
 
 export interface SortConfig {
-  key: keyof Product;
-  order: 'asc' | 'desc';
+  key: 'name' | 'price' | 'quantity'
+  order: 'asc' | 'desc'
 }
 
 export interface FilterConfig {
