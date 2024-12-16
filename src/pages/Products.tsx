@@ -19,6 +19,12 @@ function Products() {
   const [showForm, setShowForm] = React.useState(false)
   const [selectedProduct, setSelectedProduct] = React.useState<Product | undefined>()
 
+  // Extract unique categories from products
+  const availableCategories = React.useMemo(() => {
+    const categories = new Set(products.map(product => product.category))
+    return Array.from(categories)
+  }, [products])
+
   const handleEdit = (product: Product) => {
     setSelectedProduct(product)
     setShowForm(true)     
@@ -131,6 +137,7 @@ function Products() {
             sort={sortConfig}
             onFilterChange={filterProducts}
             onSortChange={sortProducts}
+            availableCategories={availableCategories}
           />
         </div>
 
