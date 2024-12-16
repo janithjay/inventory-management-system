@@ -15,15 +15,15 @@ function Layout() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-20 flex">
+    <div className="min-h-screen bg-gray-20 flex overflow-hidden">
       {/* Sidebar */}
-      <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg">
+      <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg fixed h-full flex flex-col">
         <div className="p-4">
           <h1 className="text-2xl font-bold text-black">Inventory MS</h1>
           <p className="text-l text-gray-800 mt-1">Welcome, {user?.username}</p>
         </div>
         
-        <nav className="mt-8">
+        <nav className="mt-8 flex-grow overflow-y-auto">
           <Button
             variant="ghost"
             className="w-full justify-start px-4 py-2 text-left"
@@ -52,7 +52,7 @@ function Layout() {
           </Button>
         </nav>
 
-        <div className="absolute bottom-4 w-64 px-4">
+        <div className="p-4">
           <Button
             variant="outline"
             className="w-full justify-start"
@@ -65,7 +65,7 @@ function Layout() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 overflow-auto">
+      <div className="flex-1 overflow-auto ml-64">
         <div className="p-8">
           <Outlet />
         </div>
@@ -75,3 +75,4 @@ function Layout() {
 }
 
 export default Layout
+
