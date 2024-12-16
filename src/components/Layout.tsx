@@ -17,9 +17,10 @@ function Layout() {
   return (
     <div className="min-h-screen bg-gray-20 flex">
       {/* Sidebar */}
-      <div className="w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg">
+      <div className="fixed top-0 left-0 h-full w-64 bg-gradient-to-r from-sky-300 to-indigo-400 shadow-lg z-10 ">
         <div className="p-4">
-          <h1 className="text-2xl font-bold text-black">Inventory MS</h1>
+        <img src="./src/img/logo.jpg" alt="logo"  className=" size-20 rounded-full "/>
+          <h1 className="text-2xl font-bold text-black">Inventory Management System</h1>
           <p className="text-l text-gray-800 mt-1">Welcome, {user?.username}</p>
         </div>
         
@@ -52,10 +53,10 @@ function Layout() {
           </Button>
         </nav>
 
-        <div className="absolute bottom-4 w-64 px-4">
+        <div className="absolute bottom-4 w-64 px-4 ">
           <Button
-            variant="outline"
-            className="w-full justify-start"
+            
+            className="w-full justify-start rounded-md bg-black px-3 py-1.5 text-sm/6 font-semibold text-white border-2 border-black "
             onClick={handleLogout}
           >
             <LogOut className="mr-3 h-5 w-5" />

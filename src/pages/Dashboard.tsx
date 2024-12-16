@@ -9,9 +9,9 @@ import { ProductTable } from '../components/products/ProductTableWithoutAction'
 
 
 function Dashboard() {
-  
+
   const { products, setProducts } = useInventoryStore()
-  
+
   // Use React Query for data fetching
   const { data } = useQuery({
     queryKey: ['products'],
@@ -24,7 +24,7 @@ function Dashboard() {
       setProducts(data)
     }
   }, [data, setProducts])
-  
+
   // Get recent products (last 5)
   const recentProducts = [...products]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
@@ -33,10 +33,10 @@ function Dashboard() {
   // Get low stock products (quantity < 10)
   const lowStockProducts = products.filter(product => product.quantity < 10)
 
-  
+
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ml-64">
       <h1 className="text-2xl font-bold">Dashboard</h1>
 
       <InventoryOverview products={products} />
@@ -48,7 +48,7 @@ function Dashboard() {
           </CardHeader>
           <CardContent>
             <ProductTable
-              products={recentProducts}              
+              products={recentProducts}
             />
           </CardContent>
         </Card>
@@ -59,19 +59,15 @@ function Dashboard() {
           </CardHeader>
           <CardContent>
             <ProductTable
-              products={lowStockProducts}              
+              products={lowStockProducts}
             />
           </CardContent>
         </Card>
 
-        <Card className="md:col-span-2">
-          <CardHeader>
-            <CardTitle>Top Performing Products</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <TopProducts products={products} />
-          </CardContent>
-        </Card>
+
+        <TopProducts products={products} />
+
+
       </div>
     </div>
   )

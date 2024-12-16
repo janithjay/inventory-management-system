@@ -9,7 +9,7 @@ function Analytics() {
   const { products } = useInventoryStore()
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ml-64">
       <h1 className="text-2xl font-bold">Analytics Dashboard</h1>
       
       <InventoryOverview products={products} />

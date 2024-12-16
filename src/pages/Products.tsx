@@ -67,11 +67,11 @@ function Products() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ml-64">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Products</h1>
-        <Button onClick={() => setShowForm(true)}>
-          <Plus className="h-4 w-4 mr-2" />
+        <Button onClick={() => setShowForm(true)} className="rounded-md  bg-black px-3 py-1.5 text-sm/6 font-semibold text-white border-2 border-black  shadow-sm hover:bg-black hover:text-white">
+          <Plus className="h-4 w-4 mr-2 " />
           Add Product
         </Button>
       </div>
@@ -86,7 +86,7 @@ function Products() {
 
         <div className="col-span-3">
           {showForm ? (
-            <div className="bg-white p-6 rounded-lg shadow">
+            <div className="bg-white p-6 rounded-lg shadow outline outline-2 -outline-offset-1 outline-gray-400">
               <h2 className="text-xl font-semibold mb-4">
                 {selectedProduct ? 'Edit' : 'Add'} Product
               </h2>
@@ -97,7 +97,7 @@ function Products() {
               />
             </div>
           ) : (
-            <div className="bg-white rounded-lg shadow">
+            <div className="bg-white rounded-lg shadow outline outline-2 -outline-offset-1 outline-gray-400">
               <ProductTable
                 products={products}
                 onEdit={handleEdit}

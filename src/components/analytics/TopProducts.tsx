@@ -21,7 +21,7 @@ export function TopProducts({ products }: TopProductsProps) {
   return (
     <Card className="col-span-1 md:col-span-2">
       <CardHeader>
-        <CardTitle>Top Products by Value</CardTitle>
+        <CardTitle>Top Products</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-[300px]">
