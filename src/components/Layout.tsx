@@ -33,15 +33,15 @@ function Layout() {
         <div className="p-4 flex flex-col items-start relative">
           <div className="flex items-center w-full">
             <h1 className={cn("text-2xl font-bold text-black transition-opacity duration-300", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
-              IMS
+              INVENTORY MS
             </h1>
             <Button
               variant="ghost"
               size="icon"
-              className={cn("absolute right-2 top-2", isCollapsed ? "rotate-180" : "")}
+              className={cn("absolute right-2 top-3.5", isCollapsed ? "rotate-180" : "")}
               onClick={toggleSidebar}
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-5 w-5" />
             </Button>
           </div>
           <p className={cn("text-sm text-gray-800 mt-1 transition-opacity duration-300", isCollapsed ? "opacity-0" : "opacity-100")}>
