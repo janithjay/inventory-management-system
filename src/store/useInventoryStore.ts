@@ -95,7 +95,7 @@ export const useInventoryStore = create<InventoryState>((set, get) => {
     
     updateProduct: (product) => set((state) => {
       const updatedProducts = state.products.map((p) =>
-        p.id === product.id ? product : p
+        p.name === product.name ? product : p
       );
       localStorage.setItem('products', JSON.stringify(updatedProducts)); // Persist to localStorage
       return {

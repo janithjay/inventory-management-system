@@ -31,9 +31,14 @@ function Layout() {
         style={{ minHeight: isCollapsed ? '88px' : 'auto' }}
       >
         <div className="p-4 flex flex-col items-start relative">
+          <img src="./src/img/logo.jpg" alt="logo" className={cn(
+            " rounded-full",
+            isCollapsed ? "hidden" : "size-20"
+          )} />
           <div className="flex items-center w-full">
+
             <h1 className={cn("text-2xl font-bold text-black transition-opacity duration-300", isCollapsed ? "opacity-0 w-0" : "opacity-100")}>
-              INVENTORY MS
+              Inventory Manegement System
             </h1>
             <Button
               variant="ghost"
@@ -48,8 +53,8 @@ function Layout() {
             Welcome, {user?.username}
           </p>
         </div>
-        
-        <nav className="mt-8 flex-grow overflow-y-auto">
+
+        <nav className="mt-8 flex-grow overflow-y-auto overflow-x-hidden">
           <Button
             variant="ghost"
             className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
@@ -58,7 +63,7 @@ function Layout() {
             <LayoutDashboard className="h-5 w-5" />
             {!isCollapsed && <span className="ml-2">Dashboard</span>}
           </Button>
-          
+
           <Button
             variant="ghost"
             className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
@@ -67,7 +72,7 @@ function Layout() {
             <Package className="h-5 w-5" />
             {!isCollapsed && <span className="ml-2">Products</span>}
           </Button>
-          
+
           <Button
             variant="ghost"
             className={cn("w-full justify-start px-4 py-2 text-left", isCollapsed && "justify-center")}
@@ -81,10 +86,10 @@ function Layout() {
         <div className="p-4">
           <Button
             variant="outline"
-            className={cn("w-full", isCollapsed ? "justify-center px-0" : "justify-start")}
+            className={cn("w-full rounded-md  bg-black px-3 py-1.5 text-sm/6 font-semibold text-white border-2 border-black  shadow-sm hover:bg-black hover:text-white", isCollapsed ? "justify-center px-0" : "justify-start")}
             onClick={handleLogout}
           >
-            <LogOut className="h-5 w-5" />
+            <LogOut className="h-5 w-5 " />
             {!isCollapsed && <span className="ml-3">Logout</span>}
           </Button>
         </div>
