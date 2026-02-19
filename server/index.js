@@ -18,10 +18,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://phdbahasuru:qlZfdD77IUx3xj8G@cluster0.1omwaw2.mongodb.net/InventoryManagementSystem', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
